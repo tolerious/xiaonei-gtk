@@ -5,4 +5,4 @@ application:$(object)
 main.o:main.c GetAccessToken.c
 GetAccessToken.o:GetAccessToken.c
 clean:
-	rm *.o;rm *~;rm application
+	rm *.o;rm *~;rm application;rm result.html
