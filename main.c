@@ -7,12 +7,32 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <gtk/gtk.h>
 /*
  * 
  */
 int main(int argc, char** argv) {
     GetAccessToken();
+    system("firefox result.html");
+    puts("\n\nget AccessToken successful\n\n");
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     return (EXIT_SUCCESS);
 }
 

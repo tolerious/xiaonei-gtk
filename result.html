@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>与人人连接</title>
+<link href="http://s.xnimg.cn/a59176/apps/openplatform/oauth2/css/web.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body style="*position:relative">
+<!--导航栏-->
+<div id="header">
+<div id="navBar" class="site-nav rr">
+<div class="navigation-wrapper" id='navigation'>
+<div class="navigation navigation-new clearfix">
+<div id="logo2">
+<h1>
+<a href="http://www.renren.com" title="人人网 renren.com - 人人网校内是一个真实的社交网络，联系朋友，一起玩游戏">
+<img alt="人人网 renren.com - 人人网校内是一个真实的社交网络，联系朋友，一起玩游戏" title="人人网 renren.com - 人人网校内是一个真实的社交网络，联系朋友，一起玩游戏" height="72" width="222" src="http://a.xnimg.cn/n/apps/login/v6/res/logo_v6.png">
+</a>
+</h1>
+</div>
+<div class="nav-body clearfix">
+<h2 id='nav_title' class="nav-title">中国领先的实名制SNS社交网络</h2>
+<div class="nav-other" id='nav_other'>
+<div class="menu">
+<a id="reg_link" title="注册" stats="homenav_reg" href=
+"http://reg.renren.com/xn6205.do?ss=17059&rt=1&g=234283&app_id=234283">注册</a>
+</div>
+<div class="menu" style="display:none;">
+<div class="menu-title">
+<strong>
+<a href="http://www.renren.com/" stats="homenav_login" title="登录">登录</a>
+</strong>
+</div>
+</div>
+<div class="menu" style="display:none;">
+<div class="menu-title">
+<strong>
+<a href="http://support.renren.com/helpcenter" stats="homenav_help" title="帮助">帮助</a>
+</strong>
+</div>
+</div>
+<div class="menu">
+<a title="给我们提建议" stats="homenav_suggest" href="http://support.renren.com/link/suggest">给我们提建议</a>
+</div>
+<div class="menu more">
+<a stats="homenav_more" href='javascript:;' id="moreWeb" class="show-more"  hidefocus="true">更多</a><!-- 选中selected -->
+</div>
+</div>
+<div class='clear'></div>
+</div>
+<div class='clear'></div>
+</div>
+<div class='clear'></div>
+</div>
+</div>
+<div class='clear'></div>
+</div>
+<!--end header-->
+<div id="moredownWeb" class="dropdown" style='display:none'>
+<div class="menu-dropdown-border">
+<div class="weblist">
+<ul id='moredownUl' class="clearfix">
+<li><a href="http://share.renren.com">分享</a></li>
+<li><a href="http://app.renren.com">应用程序</a></li>
+<li><a href="http://page.renren.com">公共主页</a></li>
+<li><a href="http://life.renren.com">人人生活</a></li>
+<li><a href="http://xiaozu.renren.com/">人人小组</a></li>
+<li><a href="http://name.renren.com">同名同姓</a></li>
+<li><a href="http://school.renren.com/allpages.html">校园百科</a></li>
+<li><a href="http://school.renren.com/daxue/">大学百科</a></li>
+<li><a href="http://life.renren.com/hot">人人热点</a></li>
+<li><a href="http://zhan.renren.com/">人人小站</a></li>
+<li><a href="http://j.renren.com/">人人逛街</a></li>
+<li><a href="http://xiaozhao.renren.com/">人人校招</a></li>
+<li><a href="http://www.renren.com/u">人人寻友</a></li>
+<li><a href="http://gaokao.renren.com/">人人高考</a></li>
+<div class='clear'></div>
+</ul>
+<div class='clear'></div>
+</div>
+<div class='clear'></div>
+</div>
+</div>
+<div id='api-login' class='api-login'>
+<div class='title'>
+<h1>使用人人帐号登录<a class='title-app' href="">terminal.renren</a></h1>
+</div>
+<form class='login-form' id="login-form" method="post" action="https://graph.renren.com/oauth/grant">
+<!--左边登陆部分-->
+<div id='left' class='left'>
+<!--登录类型标记-->
+<input type="hidden" name="login_type" value="false" id='login_type' autocomplete="off"/>
+<!--普通登陆--><div id='clogin'>
+<dl class='uin'>
+<label class="input-tips" id="rrid_tips">邮箱/手机号/用户名</label>
+<dt><label>帐号:</label></dt>
+<dd>
+<input class='api-rrid' onclick='' type='text' name='username' id='rrid' tabindex='1' autocomplete='off' value="" />
+</dd>
+</dl>
+<dl class='pwd'>
+<label class="input-tips" id="rrpw_tips" >请输入密码</label>
+<dt><label>密码:</label></dt>
+<dd>
+<input class='api-rrpw' type='password' name='password' id='rrpw' tabindex='2' autocomplete='off' />
+</dd>
+</dl>
+<div class='error-tips'>
+<span id='show_error'></span>
+<a  href='https://safe.renren.com/standalone/findpwd'>忘记密码了？</a>
+<div class='clear'></div>
+</div>
+<dl class='code' id='verify_area'>
+<label class="input-tips" id="icode_tips">请输入验证码</label>
+<dd>
+<input class='api-code' type='text' name='icode' id='icode' tabindex='3' autocomplete='off' />
+</dd>
+<image id="verify-img" src="http://icode.renren.com/getcode.do?t=openplatform" class="refresh-verify"/>
+<a href="javascript:;" class="refresh-verify" id='chg-img'>换一张</a>
+<input id="isNeedIcode" class="textbox" name="isNeedIcode" type="hidden" value="false" />
+</dl>
+</div>
+<!--快速登录-->
+<div id='qlogin' class='qlogin'>
+<div>
+</div></div>
+<!--授权登录、切换-->
+<div>
+<input id='submit' class="api-submit" type="submit" value="授权并登录" tabindex="4"/>   
+<a href="http://graph.renren.com/oauth/login_success.html#error=access_denied&error_description=The+end-user+or+authorization+server+denied+the+request.&error_uri=http%3a%2f%2fgraph.renren.com%2foauth%2ferror%3ferror%3daccess_denied%26error_description%3dThe%2Bend-user%2Bor%2Bauthorization%2Bserver%2Bdenied%2Bthe%2Brequest." class="login-cancel" id='login-cancel'>取消</a>
+<br/>
+<a id='change_user' class='other'>其他人人帐号</a>
+</div>
+</div>
+<!--右边授权部分-->
+<div class='right'>
+<div class="api-allow" style="height:auto" id="api-allow">
+<p>允许 <a href="">terminal.renren</a> 进行以下操作：<span class="opi-packup" id="toggle-list"></span></p>
+<ul class="functions">
+<li>
+<label>
+<input type="checkbox" checked="checked" disabled="disabled" value="true"/><span>获取你的个人信息和好友关系</span></label></li>
+<li><input type='checkbox' value="true" name="follow" id="be-fans" class="opicon-follow" checked='checked' />
+<span>成为公共主页的关注者</span>
+</li>
+</ul>
+</div>
+<input type="hidden" name="porigin" value="80100" />
+<input type="hidden" name="redirect_uri" value="http://graph.renren.com/oauth/login_success.html" />
+<input type="hidden" name="client_id" value="2cc79d04e5264b928d4be870072ed56f" />
+<input type="hidden" name="response_type" value="token" />
+<input type="hidden" name="scope" value="" />
+<input type="hidden" name="state" value="" />
+<input type="hidden" name="display" value="page" />
+<input type="hidden" name="post_form_id" value="15425c60139a4b48b231946fa31f1f8f-30-1393929900568" />
+<input type="hidden" name="authorizeOrigin" value="00000"/>
+
+<input type="hidden" name="secure" value="true" />
+</div><div class='clear'></div>
+</form>
+<div class='clear'></div>
+</div>
+
+</body>
+<script src='http://s.xnimg.cn/a59013/apps/openplatform/oauth2/js/web.js'></script>
+<!--[if IE 7]><script>if(document.body.scrollHeight ===  document.documentElement.scrollHeight ){document.body.style.overflow = 'visible';}</script><![endif]-->
+</html>
