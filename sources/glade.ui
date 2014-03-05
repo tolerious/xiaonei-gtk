@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkListStore" id="liststore1">
+    <columns>
+      <!-- column-name 1 -->
+      <column type="GdkPixbuf"/>
+      <!-- column-name 2 -->
+      <column type="GdkPixbuf"/>
+      <!-- column-name GdkPixbuf1 -->
+      <column type="GdkPixbuf"/>
+    </columns>
+  </object>
   <object class="GtkWindow" id="window1">
     <property name="width_request">500</property>
     <property name="height_request">500</property>
@@ -75,7 +85,11 @@
             <property name="vexpand">True</property>
             <property name="scrollable">True</property>
             <child>
-              <placeholder/>
+              <object class="GtkIconView" id="iconview1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="model">liststore1</property>
+              </object>
             </child>
             <child type="tab">
               <object class="GtkLabel" id="label1">
