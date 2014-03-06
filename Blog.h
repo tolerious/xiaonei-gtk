@@ -13,11 +13,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "AccessToken.h"
-#define URL "https://api.renren.com/v2/blog/list"
+#define URL "https://api.renren.com/v2/blog/list1"
 #define POST_URL "https://api.renren.com/v2/blog/put"
 #ifdef	__cplusplus
 extern "C" {
 #endif
+    static size_t write_data(char *ptr, size_t size, size_t nmemb, void *userdata);
     GList* xiaonei_gtk_get_blog_list(char *access_token);
     void xiaonei_gtk_create_one_blog(char *access_token);
 

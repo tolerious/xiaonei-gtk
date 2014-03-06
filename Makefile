@@ -6,4 +6,4 @@ main.o: AccessToken.h Blog.h
 GetAccessToken.o:GetAccessToken.h
 Blog.o:Blog.h AccessToken.h
 clean:
-	rm *.o;rm *~;rm xiaonei-gtk;rm result.html
+	rm *.o;rm *~;rm xiaonei-gtk;rm result.html;rm blog_info.json

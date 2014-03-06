@@ -5,7 +5,7 @@ GList* xiaonei_gtk_get_blog_list(char *access_token)
     curl_global_init(CURL_GLOBAL_ALL);
     curl = curl_easy_init();
     FILE *filename = NULL;
-    filename = fopen("blog.json", "w");
+    filename = fopen("blog_info.json", "w");
     char str[500];
     sprintf(str, URL"?access_token=%s&ownerld=%d&pageSize=%d&pageNumber=%d",access_token,
             269787992, 15, 1);
@@ -14,6 +14,9 @@ GList* xiaonei_gtk_get_blog_list(char *access_token)
     curl_easy_setopt(curl, CURLOPT_HTTPGET, 1L);
     curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0L);
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+    curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION,write_data);
+    curl_easy_setopt(curl,CURLOPT_WRITEDATA,filename);
+    fclose(filename);
     curl_easy_perform(curl);
     curl_easy_cleanup(curl);
 }
@@ -37,4 +40,9 @@ void xiaonei_gtk_create_one_blog(char *access_token)
     printf("ptr is %s", ptr); 
     curl_easy_perform(curl);
     curl_easy_cleanup(curl);
+}
+static size_t write_data(char *ptr, size_t size, size_t nmemb, void *userdata)
+{
+    FILE *file = (FILE*)userdata;
+    return fwrite(ptr, size, nmemb, file);
 }
