@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>AccessToken.h</itemPath>
+      <itemPath>Blog.h</itemPath>
       <itemPath>GetAccessToken.h</itemPath>
       <itemPath>decode.h</itemPath>
     </logicalFolder>
@@ -15,6 +16,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>Blog.c</itemPath>
       <itemPath>GetAccessToken.c</itemPath>
       <itemPath>decode.c</itemPath>
       <itemPath>main.c</itemPath>
@@ -42,6 +44,10 @@
       <compileType>
       </compileType>
       <item path="AccessToken.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Blog.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Blog.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="GetAccessToken.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -75,6 +81,10 @@
         </asmTool>
       </compileType>
       <item path="AccessToken.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Blog.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Blog.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="GetAccessToken.c" ex="false" tool="0" flavor2="0">
       </item>

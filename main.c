@@ -26,7 +26,11 @@ int main(int argc, char** argv) {
     printf("origin url: %s\n", ACCESS_TOKEN);
     printf("new    url: %s\n", decode_string);
     curl_easy_cleanup(curl);
-    
+    char accesstoken[500];
+    puts("enter access token\n");
+    scanf("%s",  accesstoken);
+    xiaonei_gtk_get_blog_list(accesstoken);
+    //xiaonei_gtk_create_one_blog(accesstoken);
     
     
     
