@@ -8,12 +8,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <gtk/gtk.h>
+#include <assert.h>
 #include "AccessToken.h"
 #include <curl/curl.h>
 #include <glib-2.0/glib/gerror.h>
 /*
  * 
  */
+enum
+{
+    COL_DISPLAY_NAME = 0,
+    COL_PIXBUF,
+    NUM_COLS
+};
+GtkTreeModel*  create_model(void);
 int main(int argc, char** argv) {
     GetAccessToken();
     int i = 100;
@@ -34,7 +42,7 @@ int main(int argc, char** argv) {
     //xiaonei_gtk_create_one_blog(accesstoken);
     
     //gtk wdiget init start...
-    GtkWidget *window;
+    GtkWidget *window, *icon_view, *notebook;
     GtkBuilder *builder;
     GError *error = NULL;
     
@@ -51,15 +59,21 @@ int main(int argc, char** argv) {
     
     //widget get from builder(glade files)
     window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
-    
+    notebook = GTK_WIDGET(gtk_builder_get_object(builder, "notebook1"));
+    icon_view = GTK_WIDGET(gtk_builder_get_object(builder, "iconview1"));
     
     
     //set object attributes
     gtk_window_set_title(GTK_WINDOW(window), "Xiao nei Gtk Demo");
     gtk_window_set_default_size(GTK_WINDOW(window), 400, 400);
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+    icon_view = gtk_icon_view_new_with_model(create_model());
+    gtk_icon_view_set_text_column(GTK_ICON_VIEW(icon_view), COL_DISPLAY_NAME);
+    gtk_icon_view_set_pixbuf_column(GTK_ICON_VIEW(icon_view), COL_PIXBUF);
     
     
+    gtk_container_add(GTK_CONTAINER(window), notebook);
+    gtk_container_add(GTK_CONTAINER(notebook), icon_view);
     
     
     
@@ -81,4 +95,21 @@ int main(int argc, char** argv) {
     
     return (EXIT_SUCCESS);
 }
-
+GtkTreeModel* create_model(void)
+{
+    GtkListStore *list_store;
+    GdkPixbuf *p1;
+    GtkTreeIter iter;
+    GError *err = NULL;
+    
+    p1= gdk_pixbuf_new_from_file("./sources/1.PNG", &err);
+    
+    assert(err == NULL);
+    list_store = gtk_list_store_new(NUM_COLS,
+            G_TYPE_STRING, GDK_TYPE_PIXBUF);
+    gtk_list_store_append(list_store, &iter);
+    gtk_list_store_set(list_store, &iter, COL_DISPLAY_NAME,
+            "icon", COL_PIXBUF, p1, -1);
+    
+    return GTK_TREE_MODEL(list_store);
+}
