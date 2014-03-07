@@ -15,6 +15,7 @@
 /*
  * 
  */
+#define ICON_NUM 8
 enum
 {
     COL_DISPLAY_NAME = 0,
@@ -45,7 +46,7 @@ int main(int argc, char** argv) {
     
     //gtk wdiget init start...
     GtkWidget *window, *icon_view, *notebook;
-    GtkWidget *page_label;
+    GtkWidget *current_user_name, *current_time, *network_speed;
     GtkBuilder *builder;
     GError *error = NULL;
     
@@ -64,16 +65,20 @@ int main(int argc, char** argv) {
     window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
     notebook = GTK_WIDGET(gtk_builder_get_object(builder, "notebook1"));
     icon_view = GTK_WIDGET(gtk_builder_get_object(builder, "iconview1"));
+    current_user_name = GTK_WIDGET(gtk_builder_get_object(builder,"label4"));
+    current_time = GTK_WIDGET(gtk_builder_get_object(builder, "label5"));
+    network_speed = GTK_WIDGET(gtk_builder_get_object(builder, "label6"));
     //set object attributes
-    gtk_window_set_title(GTK_WINDOW(window), "Xiao nei Gtk Demo");
-    gtk_window_set_default_size(GTK_WINDOW(window), 400, 400);
+    gtk_window_set_title(GTK_WINDOW(window), "Xiao nei Gtk App");
+    gtk_window_set_default_size(GTK_WINDOW(window), 800, 400);
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-    //icon_view = gtk_icon_view_new_with_model(create_model());
     gtk_icon_view_set_model(GTK_ICON_VIEW(icon_view), create_model());
     gtk_icon_view_set_text_column(GTK_ICON_VIEW(icon_view), COL_DISPLAY_NAME);
     gtk_icon_view_set_pixbuf_column(GTK_ICON_VIEW(icon_view), COL_PIXBUF);
-    
-    
+    gtk_icon_view_set_columns(GTK_ICON_VIEW(icon_view), 4);
+    gtk_label_set_text(GTK_LABEL(current_user_name), "Current user:fengtianba");
+    gtk_label_set_text(GTK_LABEL(current_time), "Current Time:2014");
+    gtk_label_set_text(GTK_LABEL(network_speed), "Network Speed:100M");
     
     
     //signal to connect to widget
@@ -97,18 +102,58 @@ int main(int argc, char** argv) {
 GtkTreeModel* create_model(void)
 {
     GtkListStore *list_store;
-    GdkPixbuf *p1;
+    GdkPixbuf *p1, *p2, *p3, *p4, *p5, *p6, *p7, *p8;
     GtkTreeIter iter;
     GError *err = NULL;
-    
-    p1= gdk_pixbuf_new_from_file("./sources/1.PNG", &err);
-    
+    char filename[20];
+    int i = 1;
+    char *icon_name[]={
+        "location",
+        "album",
+        "blog",
+        "vipinfo",
+        "evaluation",
+        "share",
+        "ubb",
+        "notification"
+    };   
+        
+    p1 = gdk_pixbuf_new_from_file("./sources/1.png", &err);
+    p2 = gdk_pixbuf_new_from_file("./sources/2.png", &err);
+    p3 = gdk_pixbuf_new_from_file("./sources/3.png", &err);
+    p4 = gdk_pixbuf_new_from_file("./sources/4.png", &err);
+    p5 = gdk_pixbuf_new_from_file("./sources/5.png", &err);
+    p6 = gdk_pixbuf_new_from_file("./sources/6.png", &err);
+    p7 = gdk_pixbuf_new_from_file("./sources/7.png", &err);
+    p8 = gdk_pixbuf_new_from_file("./sources/8.png", &err);
     assert(err == NULL);
     list_store = gtk_list_store_new(NUM_COLS,
             G_TYPE_STRING, GDK_TYPE_PIXBUF);
+    
     gtk_list_store_append(list_store, &iter);
     gtk_list_store_set(list_store, &iter, COL_DISPLAY_NAME,
-            "icon", COL_PIXBUF, p1, -1);
+            icon_name[0], COL_PIXBUF, p1, -1);
+    gtk_list_store_append(list_store, &iter);
+    gtk_list_store_set(list_store, &iter, COL_DISPLAY_NAME,
+            icon_name[1], COL_PIXBUF, p2, -1);
+    gtk_list_store_append(list_store, &iter);
+    gtk_list_store_set(list_store, &iter, COL_DISPLAY_NAME,
+            icon_name[2], COL_PIXBUF, p3, -1);
+    gtk_list_store_append(list_store, &iter);
+    gtk_list_store_set(list_store, &iter, COL_DISPLAY_NAME,
+            icon_name[3], COL_PIXBUF, p4, -1);
+    gtk_list_store_append(list_store, &iter);
+    gtk_list_store_set(list_store, &iter, COL_DISPLAY_NAME,
+            icon_name[4], COL_PIXBUF, p5, -1);
+    gtk_list_store_append(list_store, &iter);
+    gtk_list_store_set(list_store, &iter, COL_DISPLAY_NAME,
+            icon_name[5], COL_PIXBUF, p6, -1);
+    gtk_list_store_append(list_store, &iter);
+    gtk_list_store_set(list_store, &iter, COL_DISPLAY_NAME,
+            icon_name[6], COL_PIXBUF, p7, -1);
+    gtk_list_store_append(list_store, &iter);
+    gtk_list_store_set(list_store, &iter, COL_DISPLAY_NAME,
+            icon_name[7], COL_PIXBUF, p8, -1);
     
     return GTK_TREE_MODEL(list_store);
 }
