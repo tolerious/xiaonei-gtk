@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
     //widget init
     gtk_init(&argc, &argv);
     builder = gtk_builder_new();
-    if(!gtk_builder_add_from_file(builder, "./sources/glade.ui", &error))
+    if(!gtk_builder_add_from_file(builder, "./sources/glade.glade", &error))
     {
         g_print("Error occured while loading UI files\n");
         g_print("Message: %s\n", error->message);
