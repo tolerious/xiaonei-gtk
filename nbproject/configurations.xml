@@ -18,7 +18,6 @@
                    projectFiles="true">
       <itemPath>Blog.c</itemPath>
       <itemPath>GetAccessToken.c</itemPath>
-      <itemPath>decode.c</itemPath>
       <itemPath>main.c</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -52,8 +51,6 @@
       <item path="GetAccessToken.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="GetAccessToken.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="decode.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="decode.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -89,8 +86,6 @@
       <item path="GetAccessToken.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="GetAccessToken.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="decode.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="decode.h" ex="false" tool="3" flavor2="0">
       </item>

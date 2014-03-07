@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
     GetAccessToken();
     int i = 100;
     char *decode_string;
-    system("firefox result.html &");
+    system("firefox result.html  2>/dev/null &");
     puts("\n\nget AccessToken successful\n\n");
     CURL *curl;
     curl_global_init(CURL_GLOBAL_ALL);
