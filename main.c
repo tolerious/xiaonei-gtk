@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
     GetAccessToken();
     int i = 100;
     char *decode_string;
-    system("firefox result.html  2>/dev/null &");
+    //system("firefox result.html  2>/dev/null &");
     puts("\n\nget AccessToken successful\n\n");
     CURL *curl;
     curl_global_init(CURL_GLOBAL_ALL);
@@ -60,9 +60,6 @@ int main(int argc, char** argv) {
     //widget get from builder(glade files)
     window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
     notebook = GTK_WIDGET(gtk_builder_get_object(builder, "notebook1"));
-    icon_view = GTK_WIDGET(gtk_builder_get_object(builder, "iconview1"));
-    
-    
     //set object attributes
     gtk_window_set_title(GTK_WINDOW(window), "Xiao nei Gtk Demo");
     gtk_window_set_default_size(GTK_WINDOW(window), 400, 400);
@@ -70,7 +67,7 @@ int main(int argc, char** argv) {
     icon_view = gtk_icon_view_new_with_model(create_model());
     gtk_icon_view_set_text_column(GTK_ICON_VIEW(icon_view), COL_DISPLAY_NAME);
     gtk_icon_view_set_pixbuf_column(GTK_ICON_VIEW(icon_view), COL_PIXBUF);
-    
+
     
     gtk_container_add(GTK_CONTAINER(notebook), icon_view);
     
