@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Blog.o \
 	${OBJECTDIR}/GetAccessToken.o \
+	${OBJECTDIR}/location.o \
 	${OBJECTDIR}/main.o
 
 
@@ -73,6 +74,11 @@ ${OBJECTDIR}/GetAccessToken.o: GetAccessToken.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GetAccessToken.o GetAccessToken.c
+
+${OBJECTDIR}/location.o: location.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/location.o location.c
 
 ${OBJECTDIR}/main.o: main.c 
 	${MKDIR} -p ${OBJECTDIR}
