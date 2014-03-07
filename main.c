@@ -43,6 +43,7 @@ int main(int argc, char** argv) {
     
     //gtk wdiget init start...
     GtkWidget *window, *icon_view, *notebook;
+    GtkWidget *page_label;
     GtkBuilder *builder;
     GError *error = NULL;
     
@@ -67,9 +68,10 @@ int main(int argc, char** argv) {
     icon_view = gtk_icon_view_new_with_model(create_model());
     gtk_icon_view_set_text_column(GTK_ICON_VIEW(icon_view), COL_DISPLAY_NAME);
     gtk_icon_view_set_pixbuf_column(GTK_ICON_VIEW(icon_view), COL_PIXBUF);
-
+    //add notebook page myself
+    page_label = gtk_label_new("Page1");
+    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), icon_view, page_label);
     
-    gtk_container_add(GTK_CONTAINER(notebook), icon_view);
     
     
     
