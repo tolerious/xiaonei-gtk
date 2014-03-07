@@ -50,3 +50,26 @@ static size_t write_data(char *ptr, size_t size, size_t nmemb, void *userdata)
     puts("write data function running...");
     return fwrite(ptr, size, nmemb, file);
 }
+void xiaonei_gtk_get_one_blog(char *access_token)
+{
+    CURL *curl;
+    curl_global_init(CURL_GLOBAL_ALL);
+    curl = curl_easy_init();
+    FILE *filename = NULL;
+    filename = fopen("person_one_blog", "w");
+    char str[500];
+    sprintf(str, GET_URL"?access_token=%s&ownerId=%s&blogId=%s&password=%s",
+            access_token, "252633228", "923139078", "");
+    puts(str);
+    curl_easy_setopt(curl, CURLOPT_URL, str);
+    curl_easy_setopt(curl, CURLOPT_HTTPGET, 1L);
+    curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0L);
+    curl_easy_setopt(curl, CURLOPT_VERBOSE, 0L);
+    curl_easy_setopt(curl, CURLOPT_HEADER, 0L);
+    curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, filename);
+    //fclose(filename);
+    curl_easy_perform(curl);
+    curl_easy_cleanup(curl);
+}
