@@ -72,7 +72,6 @@ int main(int argc, char** argv) {
     gtk_icon_view_set_pixbuf_column(GTK_ICON_VIEW(icon_view), COL_PIXBUF);
     
     
-    gtk_container_add(GTK_CONTAINER(window), notebook);
     gtk_container_add(GTK_CONTAINER(notebook), icon_view);
     
     
