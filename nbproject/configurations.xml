@@ -7,7 +7,6 @@
       <itemPath>AccessToken.h</itemPath>
       <itemPath>Blog.h</itemPath>
       <itemPath>GetAccessToken.h</itemPath>
-      <itemPath>decode.h</itemPath>
       <itemPath>location.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -54,8 +53,6 @@
       </item>
       <item path="GetAccessToken.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="decode.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="location.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="location.h" ex="false" tool="3" flavor2="0">
@@ -92,8 +89,6 @@
       <item path="GetAccessToken.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="GetAccessToken.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="decode.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="location.c" ex="false" tool="0" flavor2="0">
       </item>

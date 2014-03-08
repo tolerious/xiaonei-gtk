@@ -22,33 +22,19 @@ enum
     COL_PIXBUF,
     NUM_COLS
 };
+char accesstoken[500];
 //icon view sigle click callback
 void icon_view_item_select(GtkIconView *icon_view, GtkTreePath *path, gpointer userdata);
+void home_button_clicked(GtkButton *button, gpointer userdata);
 GtkTreeModel*  create_model(void);
 int main(int argc, char** argv) {
-    GetAccessToken();
-    int i = 100;
-    char *decode_string;
-    //system("firefox result.html  2>/dev/null &");
-    puts("\n\nget AccessToken successful\n\n");
-    CURL *curl;
-    curl_global_init(CURL_GLOBAL_ALL);
-    curl = curl_easy_init();
-    decode_string = curl_easy_unescape(curl, ACCESS_TOKEN, 0, &i);
-    printf("origin url: %s\n", ACCESS_TOKEN);
-    printf("new    url: %s\n", decode_string);
-    curl_easy_cleanup(curl);
-    char accesstoken[500];
-    puts("enter access token\n");
-    scanf("%s",  accesstoken);
-    //调用自己写的SDK
-    xiaonei_gtk_get_blog_list(accesstoken);
-    xiaonei_gtk_get_one_blog(accesstoken);
-    //xiaonei_gtk_create_one_blog(accesstoken);
+    
     
     //gtk wdiget init start...
     GtkWidget *window, *icon_view, *notebook;
     GtkWidget *current_user_name, *current_time, *network_speed;
+    GtkWidget *username_entry, *password_entry, *ok_button, *cancel_button;
+    GtkWidget *home_button;
     GtkBuilder *builder;
     GError *error = NULL;
     
@@ -70,6 +56,11 @@ int main(int argc, char** argv) {
     current_user_name = GTK_WIDGET(gtk_builder_get_object(builder,"label4"));
     current_time = GTK_WIDGET(gtk_builder_get_object(builder, "label5"));
     network_speed = GTK_WIDGET(gtk_builder_get_object(builder, "label6"));
+    username_entry = GTK_WIDGET(gtk_builder_get_object(builder, "entry1"));
+    password_entry = GTK_WIDGET(gtk_builder_get_object(builder, "entry2"));
+    ok_button = GTK_WIDGET(gtk_builder_get_object(builder, "button2"));
+    cancel_button = GTK_WIDGET(gtk_builder_get_object(builder, "button3"));
+    home_button = GTK_WIDGET(gtk_builder_get_object(builder, "button1"));
     //set object attributes
     gtk_window_set_title(GTK_WINDOW(window), "Xiao nei Gtk App");
     gtk_window_set_default_size(GTK_WINDOW(window), 800, 400);
@@ -81,25 +72,56 @@ int main(int argc, char** argv) {
     gtk_label_set_text(GTK_LABEL(current_user_name), "Current user:fengtianba");
     gtk_label_set_text(GTK_LABEL(current_time), "Current Time:2014");
     gtk_label_set_text(GTK_LABEL(network_speed), "Network Speed:100M");
+    gtk_notebook_set_scrollable(GTK_NOTEBOOK(notebook), TRUE);
     int n = gtk_notebook_page_num(GTK_NOTEBOOK(notebook), icon_view);
     printf("n is %d\n", n);
     
     //signal to connect to widget
     g_signal_connect(window, "delete-event", gtk_main_quit, NULL);
     g_signal_connect(GTK_ICON_VIEW(icon_view), "item-activated", G_CALLBACK(icon_view_item_select), notebook);
-    
-    
-    
-    
+    g_signal_connect(GTK_BUTTON(home_button), "clicked", G_CALLBACK(home_button_clicked), notebook);
     
     //object unref
     g_object_unref(G_OBJECT(builder));
-    
-    
+
+
     //show widget 
     gtk_widget_show_all(window);
     gtk_main();
     
+    
+    
+    
+    
+    
+    
+    GetAccessToken();
+    int i = 100;
+    char *decode_string;
+    //system("firefox result.html  2>/dev/null &");
+    puts("\n\nget AccessToken successful\n\n");
+    CURL *curl;
+    curl_global_init(CURL_GLOBAL_ALL);
+    curl = curl_easy_init();
+    decode_string = curl_easy_unescape(curl, ACCESS_TOKEN, 0, &i);
+    printf("origin url: %s\n", ACCESS_TOKEN);
+    printf("new    url: %s\n", decode_string);
+    curl_easy_cleanup(curl);
+
+    puts("enter access token\n");
+    scanf("%s", accesstoken);
+    //调用自己写的SDK
+    xiaonei_gtk_get_blog_list(accesstoken);
+    xiaonei_gtk_get_one_blog(accesstoken);
+    //xiaonei_gtk_create_one_blog(accesstoken);
+
+
+
+
+
+
+    
+
     return (EXIT_SUCCESS);
 }
 GtkTreeModel* create_model(void)
@@ -172,6 +194,18 @@ void icon_view_item_select(GtkIconView *icon_view, GtkTreePath *path, gpointer u
     string = gtk_tree_model_get_string_from_iter(model, &iter);
     printf("current select string is %s\n", string);
     int n = atoi(string);
+    if(n == 0)
+    {
+        gtk_notebook_set_current_page(notebook, n+1);
+    }
     if(n == 1)
-        gtk_notebook_set_current_page(notebook, n);
+    {
+        gtk_notebook_set_current_page(notebook, n+1);
+    }
+}
+void home_button_clicked(GtkButton *button, gpointer userdata)
+{
+    GtkNotebook *notebook;
+    notebook = GTK_NOTEBOOK(userdata);
+    gtk_notebook_set_current_page(notebook, 0);
 }
