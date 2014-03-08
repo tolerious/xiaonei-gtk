@@ -86,7 +86,7 @@ int main(int argc, char** argv) {
     
     //signal to connect to widget
     g_signal_connect(window, "delete-event", gtk_main_quit, NULL);
-    g_signal_connect(GTK_ICON_VIEW(icon_view), "item-activated", G_CALLBACK(icon_view_item_select), NULL);
+    g_signal_connect(GTK_ICON_VIEW(icon_view), "item-activated", G_CALLBACK(icon_view_item_select), notebook);
     
     
     
@@ -165,11 +165,13 @@ void icon_view_item_select(GtkIconView *icon_view, GtkTreePath *path, gpointer u
     GtkTreeModel *model;
     GtkNotebook *notebook;
     GtkTreeIter iter; 
-    
+    notebook = GTK_NOTEBOOK(userdata);
     model = gtk_icon_view_get_model(icon_view);
     gtk_tree_model_get_iter(model, &iter, path);
     char *string;
     string = gtk_tree_model_get_string_from_iter(model, &iter);
     printf("current select string is %s\n", string);
-    
+    int n = atoi(string);
+    if(n == 1)
+        gtk_notebook_set_current_page(notebook, n);
 }

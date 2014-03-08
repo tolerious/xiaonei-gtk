@@ -1,7 +1,7 @@
 object=main.o GetAccessToken.o Blog.o
 CFLAGS=$(shell pkg-config --libs libcurl gtk+-3.0 --cflags gtk+-3.0)
 xiaonei-gtk:$(object)
-	gcc -o xiaonei-gtk $(object) $(CFLAGS) -g
+	gcc -o xiaonei-gtk $(object) $(CFLAGS) -g -DDEBUG
 main.o: AccessToken.h Blog.h
 GetAccessToken.o:GetAccessToken.h
 Blog.o:Blog.h AccessToken.h
