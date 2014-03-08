@@ -133,7 +133,7 @@ GtkTreeModel* create_model(void)
     char filename[20];
     int i = 1;
     char *icon_name[]={
-        "location",
+        "Login",
         "album",
         "blog",
         "vipinfo",
