@@ -22,6 +22,8 @@ enum
     COL_PIXBUF,
     NUM_COLS
 };
+//icon view sigle click callback
+void icon_view_item_select(GtkIconView *icon_view, GtkTreePath *path, gpointer userdata);
 GtkTreeModel*  create_model(void);
 int main(int argc, char** argv) {
     GetAccessToken();
@@ -79,11 +81,12 @@ int main(int argc, char** argv) {
     gtk_label_set_text(GTK_LABEL(current_user_name), "Current user:fengtianba");
     gtk_label_set_text(GTK_LABEL(current_time), "Current Time:2014");
     gtk_label_set_text(GTK_LABEL(network_speed), "Network Speed:100M");
-    
+    int n = gtk_notebook_page_num(GTK_NOTEBOOK(notebook), icon_view);
+    printf("n is %d\n", n);
     
     //signal to connect to widget
     g_signal_connect(window, "delete-event", gtk_main_quit, NULL);
-    
+    g_signal_connect(GTK_ICON_VIEW(icon_view), "item-activated", G_CALLBACK(icon_view_item_select), NULL);
     
     
     
@@ -156,4 +159,17 @@ GtkTreeModel* create_model(void)
             icon_name[7], COL_PIXBUF, p8, -1);
     
     return GTK_TREE_MODEL(list_store);
+}
+void icon_view_item_select(GtkIconView *icon_view, GtkTreePath *path, gpointer userdata)
+{
+    GtkTreeModel *model;
+    GtkNotebook *notebook;
+    GtkTreeIter iter; 
+    
+    model = gtk_icon_view_get_model(icon_view);
+    gtk_tree_model_get_iter(model, &iter, path);
+    char *string;
+    string = gtk_tree_model_get_string_from_iter(model, &iter);
+    printf("current select string is %s\n", string);
+    
 }
