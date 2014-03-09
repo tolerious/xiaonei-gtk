@@ -7,4 +7,5 @@ install libcurl
 
 
 
-每个阶段截个图：  
+每个阶段截个图:  
+![Alt text](http://ww4.sinaimg.cn/mw690/a036a21agw1ee9ecgfaqnj20nt0egaat.jpg)
