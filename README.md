@@ -5,3 +5,6 @@ install libcurl
 ---------------------
 * apt-get install libcurl4-gnutls-dev  
 
+
+
+每个阶段截个图：  
