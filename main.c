@@ -5,13 +5,19 @@
  * Created on February 13, 2014, 9:45 PM
  */
 
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <gtk/gtk.h>
 #include <assert.h>
 #include "AccessToken.h"
 #include <curl/curl.h>
+#include <time.h>
 #include <glib-2.0/glib/gerror.h>
+#include <glib.h>
+#include <glib/gprintf.h>
+#include <string.h>
+#include <malloc.h>
 /*
  * 
  */
@@ -26,6 +32,7 @@ char accesstoken[500];
 //icon view sigle click callback
 void icon_view_item_select(GtkIconView *icon_view, GtkTreePath *path, gpointer userdata);
 void home_button_clicked(GtkButton *button, gpointer userdata);
+gboolean set_label_time(gpointer userdata);
 GtkTreeModel*  create_model(void);
 int main(int argc, char** argv) {
     
@@ -61,6 +68,7 @@ int main(int argc, char** argv) {
     ok_button = GTK_WIDGET(gtk_builder_get_object(builder, "button2"));
     cancel_button = GTK_WIDGET(gtk_builder_get_object(builder, "button3"));
     home_button = GTK_WIDGET(gtk_builder_get_object(builder, "button1"));
+    
     //set object attributes
     gtk_window_set_title(GTK_WINDOW(window), "Xiao nei Gtk App");
     gtk_window_set_default_size(GTK_WINDOW(window), 800, 400);
@@ -70,11 +78,21 @@ int main(int argc, char** argv) {
     gtk_icon_view_set_pixbuf_column(GTK_ICON_VIEW(icon_view), COL_PIXBUF);
     gtk_icon_view_set_columns(GTK_ICON_VIEW(icon_view), 4);
     gtk_label_set_text(GTK_LABEL(current_user_name), "Current user:fengtianba");
-    gtk_label_set_text(GTK_LABEL(current_time), "Current Time:2014");
+    g_timeout_add_seconds(1, (GSourceFunc)set_label_time, current_time);
     gtk_label_set_text(GTK_LABEL(network_speed), "Network Speed:100M");
     gtk_notebook_set_scrollable(GTK_NOTEBOOK(notebook), TRUE);
     int n = gtk_notebook_page_num(GTK_NOTEBOOK(notebook), icon_view);
     printf("n is %d\n", n);
+    struct tm *time_ptr;
+    time_t the_time;
+    char *time_malloc;
+    (void)time(&the_time);
+    time_ptr = localtime(&the_time);
+    time_malloc = malloc(sizeof(struct tm));
+    memset(time_malloc, 0, sizeof(struct tm));
+    sprintf(time_malloc, "%d/%d/%d/%d:%d:%d", 1900 + time_ptr->tm_year, time_ptr->tm_mon, time_ptr->tm_mday,
+            time_ptr->tm_hour, time_ptr->tm_min, time_ptr->tm_sec);
+    gtk_label_set_text(GTK_LABEL(current_time), time_malloc);
     
     //signal to connect to widget
     g_signal_connect(window, "delete-event", gtk_main_quit, NULL);
@@ -82,17 +100,14 @@ int main(int argc, char** argv) {
     g_signal_connect(GTK_BUTTON(home_button), "clicked", G_CALLBACK(home_button_clicked), notebook);
     
     //object unref
-    g_object_unref(G_OBJECT(builder));
-
-
+    g_object_unref(G_OBJECT(builder));    
+    
     //show widget 
     gtk_widget_show_all(window);
-    gtk_main();
+  
+    gtk_main();   
     
-    
-    
-    
-    
+   
     
     
     GetAccessToken();
@@ -123,6 +138,52 @@ int main(int argc, char** argv) {
     
 
     return (EXIT_SUCCESS);
+}
+gboolean set_label_time(gpointer userdata)
+{
+    GtkLabel *label = GTK_LABEL(userdata);
+    struct tm *time_ptr;
+    time_t the_time;
+    char *time_malloc;
+    (void)time(&the_time);
+    time_ptr = localtime(&the_time);
+    time_malloc = malloc(sizeof(struct tm) + 50);
+    memset(time_malloc, 0, sizeof(struct tm) + 50);
+    int real_mon = time_ptr->tm_mon;
+    int real_day = time_ptr->tm_mday;
+    int real_hour = time_ptr->tm_hour;
+    int real_min = time_ptr->tm_min;
+    int real_sec = time_ptr->tm_sec;
+    char real_mon_string[5];
+    char real_day_string[5];
+    char real_hour_string[5];
+    char real_min_string[5];
+    char real_sec_string[5];
+    if(real_mon < 10)
+        sprintf(real_mon_string, "0%d", real_mon);
+    else
+        sprintf(real_mon_string, "%d", real_mon);
+    if(real_day < 10)
+        sprintf(real_day_string, "0%d", real_day);
+    else
+        sprintf(real_day_string, "%d", real_day);
+    if(real_hour < 10)
+        sprintf(real_hour_string, "0%d", real_hour);
+    else
+        sprintf(real_hour_string, "%d", real_hour);
+    if(real_min < 10)
+        sprintf(real_min_string, "0%d", real_min);
+    else
+        sprintf(real_min_string, "%d", real_min);
+    if(real_sec < 10)
+        sprintf(real_sec_string, "0%d", real_sec);
+    else
+        sprintf(real_sec_string, "%d", real_sec);
+    g_sprintf(time_malloc, "%d/%s/%s/%s:%s:%s", 1900 + time_ptr->tm_year, real_mon_string, real_day_string,
+            real_hour_string, real_min_string, real_sec_string);
+    gtk_label_set_text(GTK_LABEL(label), time_malloc);
+    free(time_malloc);
+    return TRUE;
 }
 GtkTreeModel* create_model(void)
 {
