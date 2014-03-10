@@ -32,6 +32,7 @@ char accesstoken[500];
 //icon view sigle click callback
 void icon_view_item_select(GtkIconView *icon_view, GtkTreePath *path, gpointer userdata);
 void home_button_clicked(GtkButton *button, gpointer userdata);
+void access_token_ok_button_clicked(GtkButton *button, gpointer userdata);
 gboolean set_label_time(gpointer userdata);
 GtkTreeModel*  create_model(void);
 int main(int argc, char** argv) {
@@ -41,8 +42,9 @@ int main(int argc, char** argv) {
     //gtk wdiget init start...
     GtkWidget *window, *icon_view, *notebook;
     GtkWidget *current_user_name, *current_time, *network_speed;
-    GtkWidget *username_entry, *password_entry, *ok_button, *cancel_button;
-    GtkWidget *home_button;
+    GtkWidget *username_entry, *password_entry;
+    GtkWidget *home_button, *access_token_entry, *access_token_ok_button;
+    GtkWidget *access_token_cancel_button;
     GtkBuilder *builder;
     GError *error = NULL;
     
@@ -66,9 +68,11 @@ int main(int argc, char** argv) {
     network_speed = GTK_WIDGET(gtk_builder_get_object(builder, "label6"));
     username_entry = GTK_WIDGET(gtk_builder_get_object(builder, "entry1"));
     password_entry = GTK_WIDGET(gtk_builder_get_object(builder, "entry2"));
-    ok_button = GTK_WIDGET(gtk_builder_get_object(builder, "button2"));
-    cancel_button = GTK_WIDGET(gtk_builder_get_object(builder, "button3"));
+    access_token_ok_button = GTK_WIDGET(gtk_builder_get_object(builder, "button2"));
+    access_token_cancel_button = GTK_WIDGET(gtk_builder_get_object(builder, "button3"));
     home_button = GTK_WIDGET(gtk_builder_get_object(builder, "button1"));
+    access_token_entry = GTK_WIDGET(gtk_builder_get_object(builder, "entry1"));
+    
     
     //set object attributes
     gtk_window_set_title(GTK_WINDOW(window), "Xiao nei Gtk App");
@@ -95,11 +99,12 @@ int main(int argc, char** argv) {
             time_ptr->tm_hour, time_ptr->tm_min, time_ptr->tm_sec);
     gtk_label_set_text(GTK_LABEL(current_time), time_malloc);
     
+    
     //signal to connect to widget
     g_signal_connect(window, "delete-event", gtk_main_quit, NULL);
     g_signal_connect(GTK_ICON_VIEW(icon_view), "item-activated", G_CALLBACK(icon_view_item_select), notebook);
     g_signal_connect(GTK_BUTTON(home_button), "clicked", G_CALLBACK(home_button_clicked), notebook);
-    
+    g_signal_connect(GTK_BUTTON(access_token_ok_button), "clicked", G_CALLBACK(access_token_ok_button_clicked), access_token_entry);
     //object unref
     g_object_unref(G_OBJECT(builder));    
     
@@ -269,4 +274,10 @@ void home_button_clicked(GtkButton *button, gpointer userdata)
     GtkNotebook *notebook;
     notebook = GTK_NOTEBOOK(userdata);
     gtk_notebook_set_current_page(notebook, 0);
+}
+void access_token_ok_button_clicked(GtkButton *button, gpointer userdata)
+{
+    GtkEntry *entry =  GTK_ENTRY(userdata);
+    GtkEntryBuffer *buffer = gtk_entry_get_buffer(entry);
+    printf("access token is %s\n", gtk_entry_buffer_get_text(buffer));
 }
