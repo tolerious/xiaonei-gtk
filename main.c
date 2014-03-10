@@ -36,7 +36,8 @@ gboolean set_label_time(gpointer userdata);
 GtkTreeModel*  create_model(void);
 int main(int argc, char** argv) {
     
-    
+    GetAccessToken();
+    system("firefox result.html  2>/dev/null &");
     //gtk wdiget init start...
     GtkWidget *window, *icon_view, *notebook;
     GtkWidget *current_user_name, *current_time, *network_speed;
@@ -110,25 +111,24 @@ int main(int argc, char** argv) {
    
     
     
-    GetAccessToken();
+    
     int i = 100;
     char *decode_string;
-    //system("firefox result.html  2>/dev/null &");
-    puts("\n\nget AccessToken successful\n\n");
-    CURL *curl;
+    
+    /*CURL *curl;
     curl_global_init(CURL_GLOBAL_ALL);
     curl = curl_easy_init();
     decode_string = curl_easy_unescape(curl, ACCESS_TOKEN, 0, &i);
     printf("origin url: %s\n", ACCESS_TOKEN);
     printf("new    url: %s\n", decode_string);
-    curl_easy_cleanup(curl);
+    curl_easy_cleanup(curl);*/
 
-    puts("enter access token\n");
-    scanf("%s", accesstoken);
+    //puts("enter access token\n");
+    //scanf("%s", accesstoken);
     //调用自己写的SDK
     xiaonei_gtk_get_blog_list(accesstoken);
     xiaonei_gtk_get_one_blog(accesstoken);
-    //xiaonei_gtk_create_one_blog(accesstoken);
+    xiaonei_gtk_create_one_blog(accesstoken);
 
 
 
