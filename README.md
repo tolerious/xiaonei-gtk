@@ -4,6 +4,9 @@
 install libcurl
 ---------------------
 * apt-get install libcurl4-gnutls-dev  
+install json-glib
+--------------------  
+* sudo apt-get install libjson-glib-1.0-0 libjson-glib-1.0-0-dev  
 
 
 
