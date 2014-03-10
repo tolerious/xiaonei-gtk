@@ -279,5 +279,6 @@ void access_token_ok_button_clicked(GtkButton *button, gpointer userdata)
 {
     GtkEntry *entry =  GTK_ENTRY(userdata);
     GtkEntryBuffer *buffer = gtk_entry_get_buffer(entry);
-    printf("access token is %s\n", gtk_entry_buffer_get_text(buffer));
+    strncpy(accesstoken, gtk_entry_buffer_get_text(buffer), strlen(gtk_entry_buffer_get_text(buffer)));
+    
 }
