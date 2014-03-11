@@ -33,18 +33,21 @@ char accesstoken[500];
 void icon_view_item_select(GtkIconView *icon_view, GtkTreePath *path, gpointer userdata);
 void home_button_clicked(GtkButton *button, gpointer userdata);
 void access_token_ok_button_clicked(GtkButton *button, gpointer userdata);
+void get_access_token_button_clicked(GtkButton *button, gpointer userdata);
+void post_blog_ok_button_clicked(GtkButton *button, gpointer userdata);
 gboolean set_label_time(gpointer userdata);
 GtkTreeModel*  create_model(void);
 int main(int argc, char** argv) {
     
-    GetAccessToken();
-    system("firefox result.html  2>/dev/null &");
     //gtk wdiget init start...
     GtkWidget *window, *icon_view, *notebook;
     GtkWidget *current_user_name, *current_time, *network_speed;
-    GtkWidget *username_entry, *password_entry;
     GtkWidget *home_button, *access_token_entry, *access_token_ok_button;
     GtkWidget *access_token_cancel_button;
+    GtkWidget *get_access_token_button, *post_blog_title_entry;
+    GtkWidget *post_blog_content_text_view, *post_blog_content_text_buffer;
+    GtkWidget *post_blog_ok_button, *post_blog_cancel_button;
+    GList *post_blog_page = NULL;
     GtkBuilder *builder;
     GError *error = NULL;
     
@@ -66,12 +69,14 @@ int main(int argc, char** argv) {
     current_user_name = GTK_WIDGET(gtk_builder_get_object(builder,"label4"));
     current_time = GTK_WIDGET(gtk_builder_get_object(builder, "label5"));
     network_speed = GTK_WIDGET(gtk_builder_get_object(builder, "label6"));
-    username_entry = GTK_WIDGET(gtk_builder_get_object(builder, "entry1"));
-    password_entry = GTK_WIDGET(gtk_builder_get_object(builder, "entry2"));
-    access_token_ok_button = GTK_WIDGET(gtk_builder_get_object(builder, "button2"));
-    access_token_cancel_button = GTK_WIDGET(gtk_builder_get_object(builder, "button3"));
+    access_token_ok_button = GTK_WIDGET(gtk_builder_get_object(builder, "button3"));
+    access_token_cancel_button = GTK_WIDGET(gtk_builder_get_object(builder, "button6"));
+    get_access_token_button = GTK_WIDGET(gtk_builder_get_object(builder, "button2"));
     home_button = GTK_WIDGET(gtk_builder_get_object(builder, "button1"));
     access_token_entry = GTK_WIDGET(gtk_builder_get_object(builder, "entry1"));
+    post_blog_content_text_view= GTK_WIDGET(gtk_builder_get_object(builder, "textview1"));
+    post_blog_ok_button = GTK_WIDGET(gtk_builder_get_object(builder, "button4"));
+    post_blog_title_entry = GTK_WIDGET(gtk_builder_get_object(builder, "entry2"));
     
     
     //set object attributes
@@ -98,13 +103,17 @@ int main(int argc, char** argv) {
     sprintf(time_malloc, "%d/%d/%d/%d:%d:%d", 1900 + time_ptr->tm_year, time_ptr->tm_mon, time_ptr->tm_mday,
             time_ptr->tm_hour, time_ptr->tm_min, time_ptr->tm_sec);
     gtk_label_set_text(GTK_LABEL(current_time), time_malloc);
+    post_blog_page = g_list_append(post_blog_page, post_blog_title_entry);
+    post_blog_page = g_list_append(post_blog_page, post_blog_content_text_view);
     
     
     //signal to connect to widget
     g_signal_connect(window, "delete-event", gtk_main_quit, NULL);
+    g_signal_connect(GTK_BUTTON(get_access_token_button), "clicked", G_CALLBACK(get_access_token_button_clicked), NULL);
     g_signal_connect(GTK_ICON_VIEW(icon_view), "item-activated", G_CALLBACK(icon_view_item_select), notebook);
     g_signal_connect(GTK_BUTTON(home_button), "clicked", G_CALLBACK(home_button_clicked), notebook);
     g_signal_connect(GTK_BUTTON(access_token_ok_button), "clicked", G_CALLBACK(access_token_ok_button_clicked), access_token_entry);
+    g_signal_connect(GTK_BUTTON(post_blog_ok_button), "clicked", G_CALLBACK(post_blog_ok_button_clicked), post_blog_page);
     //object unref
     g_object_unref(G_OBJECT(builder));    
     
@@ -200,8 +209,8 @@ GtkTreeModel* create_model(void)
     int i = 1;
     char *icon_name[]={
         "Login",
-        "album",
         "blog",
+        "album",
         "vipinfo",
         "evaluation",
         "share",
@@ -280,5 +289,25 @@ void access_token_ok_button_clicked(GtkButton *button, gpointer userdata)
     GtkEntry *entry =  GTK_ENTRY(userdata);
     GtkEntryBuffer *buffer = gtk_entry_get_buffer(entry);
     strncpy(accesstoken, gtk_entry_buffer_get_text(buffer), strlen(gtk_entry_buffer_get_text(buffer)));
-    xiaonei_gtk_create_one_blog(accesstoken);
+    
+}
+void get_access_token_button_clicked(GtkButton *button, gpointer userdata)
+{
+    GetAccessToken();
+    system("firefox result.html  2>/dev/null &");
+}
+void post_blog_ok_button_clicked(GtkButton *button, gpointer userdata)
+{
+    GtkEntry *title_entry;
+    GtkTextView *text_view;
+    GtkEntryBuffer *title_buffer;
+    GList *list = (GList*)userdata;
+    char *title_string, *content_string;
+    title_entry = (GtkEntry*)list->data;
+    list = list->next;
+    text_view = (GtkTextView*)list->data;
+    title_buffer = gtk_entry_get_buffer(title_entry);
+    title_string = gtk_entry_buffer_get_text(title_buffer);
+    puts(title_string);
+    
 }

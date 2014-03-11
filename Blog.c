@@ -23,7 +23,7 @@ void xiaonei_gtk_get_blog_list(char *access_token)
     curl_easy_perform(curl);
     curl_easy_cleanup(curl);
 }
-void xiaonei_gtk_create_one_blog(char *access_token)
+void xiaonei_gtk_create_one_blog(char *access_token, char *title, char *content)
 {
     CURL *curl;
     curl_global_init(CURL_GLOBAL_ALL);

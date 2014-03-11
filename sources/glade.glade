@@ -164,20 +164,38 @@
                   </packing>
                 </child>
                 <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
                   <object class="GtkGrid" id="grid6">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="hexpand">True</property>
-                    <property name="vexpand">True</property>
                     <property name="row_homogeneous">True</property>
                     <property name="column_homogeneous">True</property>
                     <child>
                       <object class="GtkButton" id="button2">
-                        <property name="label" translatable="yes">确定</property>
+                        <property name="label" translatable="yes">获取AccessToken</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="receives_default">True</property>
                         <property name="valign">center</property>
+                        <property name="hexpand">True</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -188,14 +206,31 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="button3">
+                        <property name="label" translatable="yes">确定</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="receives_default">True</property>
+                        <property name="valign">center</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">0</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="button6">
                         <property name="label" translatable="yes">取消</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="receives_default">True</property>
                         <property name="valign">center</property>
+                        <property name="hexpand">True</property>
                       </object>
                       <packing>
-                        <property name="left_attach">1</property>
+                        <property name="left_attach">2</property>
                         <property name="top_attach">0</property>
                         <property name="width">1</property>
                         <property name="height">1</property>
@@ -208,24 +243,6 @@
                     <property name="width">1</property>
                     <property name="height">1</property>
                   </packing>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
                 </child>
               </object>
               <packing>
@@ -314,7 +331,8 @@
                         <child>
                           <object class="GtkEntry" id="entry4">
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
+                            <property name="can_focus">True</property>
+                            <property name="has_focus">True</property>
                             <property name="hexpand">True</property>
                             <property name="visibility">False</property>
                             <property name="invisible_char">●</property>
@@ -423,7 +441,8 @@
                     <child>
                       <object class="GtkEntry" id="entry2">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can_focus">True</property>
+                        <property name="has_focus">True</property>
                         <property name="hexpand">True</property>
                         <property name="invisible_char">●</property>
                       </object>
