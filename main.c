@@ -133,7 +133,7 @@ int main(int argc, char** argv) {
     //调用自己写的SDK
     xiaonei_gtk_get_blog_list(accesstoken);
     xiaonei_gtk_get_one_blog(accesstoken);
-    xiaonei_gtk_create_one_blog(accesstoken);
+    
 
 
 
@@ -280,5 +280,5 @@ void access_token_ok_button_clicked(GtkButton *button, gpointer userdata)
     GtkEntry *entry =  GTK_ENTRY(userdata);
     GtkEntryBuffer *buffer = gtk_entry_get_buffer(entry);
     strncpy(accesstoken, gtk_entry_buffer_get_text(buffer), strlen(gtk_entry_buffer_get_text(buffer)));
-    
+    xiaonei_gtk_create_one_blog(accesstoken);
 }
