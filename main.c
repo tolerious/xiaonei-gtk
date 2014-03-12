@@ -301,13 +301,22 @@ void post_blog_ok_button_clicked(GtkButton *button, gpointer userdata)
     GtkEntry *title_entry;
     GtkTextView *text_view;
     GtkEntryBuffer *title_buffer;
+    GtkTextBuffer *context_buffer;
+    GtkTextIter start, end;
     GList *list = (GList*)userdata;
-    char *title_string, *content_string;
+    const gchar *title_string;
+    gchar *content_string;
     title_entry = (GtkEntry*)list->data;
     list = list->next;
     text_view = (GtkTextView*)list->data;
     title_buffer = gtk_entry_get_buffer(title_entry);
     title_string = gtk_entry_buffer_get_text(title_buffer);
+    context_buffer = gtk_text_view_get_buffer(text_view);
+    gtk_text_buffer_get_start_iter(context_buffer, &start);
+    gtk_text_buffer_get_end_iter(context_buffer, &end);
+    content_string = gtk_text_buffer_get_text(context_buffer, &start, &end, TRUE);
     puts(title_string);
+    puts("\n\n\n");
+    puts(content_string);
     
 }
