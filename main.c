@@ -318,5 +318,8 @@ void post_blog_ok_button_clicked(GtkButton *button, gpointer userdata)
     puts(title_string);
     puts("\n\n\n");
     puts(content_string);
+    puts(accesstoken);
+    xiaonei_gtk_create_one_blog(accesstoken, title_string, content_string);
+    
     
 }

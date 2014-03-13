@@ -13,7 +13,7 @@
 #include <string.h>
 
 #define URL "https://graph.renren.com/oauth/authorize"
-#define URLFILDS "client_id=2cc79d04e5264b928d4be870072ed56f&redirect_uri=http://graph.renren.com/oauth/login_success.html&response_type=token"
+#define URLFILDS "client_id=2cc79d04e5264b928d4be870072ed56f&redirect_uri=http://graph.renren.com/oauth/login_success.html&response_type=token&scope=publish_blog"
 #ifdef	__cplusplus
 extern "C" {
 #endif

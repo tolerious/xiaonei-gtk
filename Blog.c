@@ -31,7 +31,7 @@ void xiaonei_gtk_create_one_blog(char *access_token, char *title, char *content)
     char str[500];
     //char *ptr;
     sprintf(str,"access_token=%s&title=%s&accessControl=%s&password=%s&content=%s",
-            access_token, "FUCK ZHONG BING DU LE !!!", "PUBLIC", "", "ni hao hello");
+            access_token, title, "PUBLIC", "", content);
     puts(str);
     //ptr = curl_easy_escape(curl, str, strlen(str));
     curl_easy_setopt(curl, CURLOPT_URL, POST_URL);
