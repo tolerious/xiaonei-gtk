@@ -37,6 +37,7 @@ void get_access_token_button_clicked(GtkButton *button, gpointer userdata);
 void post_blog_ok_button_clicked(GtkButton *button, gpointer userdata);
 gboolean set_label_time(gpointer userdata);
 GtkTreeModel*  create_model(void);
+GtkTreeModel* create_combo_box_tree_model(void);
 int main(int argc, char** argv) {
     
     //gtk wdiget init start...
@@ -47,6 +48,7 @@ int main(int argc, char** argv) {
     GtkWidget *get_access_token_button, *post_blog_title_entry;
     GtkWidget *post_blog_content_text_view, *post_blog_content_text_buffer;
     GtkWidget *post_blog_ok_button, *post_blog_cancel_button;
+    GtkWidget *blog_access_permission, *blog_password;
     GList *post_blog_page = NULL;
     GtkBuilder *builder;
     GError *error = NULL;
@@ -77,6 +79,8 @@ int main(int argc, char** argv) {
     post_blog_content_text_view= GTK_WIDGET(gtk_builder_get_object(builder, "textview1"));
     post_blog_ok_button = GTK_WIDGET(gtk_builder_get_object(builder, "button4"));
     post_blog_title_entry = GTK_WIDGET(gtk_builder_get_object(builder, "entry2"));
+    blog_access_permission = GTK_WIDGET(gtk_builder_get_object(builder, "comboboxtext1"));
+    blog_password = GTK_WIDGET(gtk_builder_get_object(builder, "entry4"));
     
     
     //set object attributes
@@ -92,6 +96,11 @@ int main(int argc, char** argv) {
     gtk_label_set_text(GTK_LABEL(network_speed), "Network Speed:100M");
     gtk_notebook_set_scrollable(GTK_NOTEBOOK(notebook), TRUE);
     int n = gtk_notebook_page_num(GTK_NOTEBOOK(notebook), icon_view);
+    //gtk_combo_box_set_model(GTK_COMBO_BOX(blog_access_permission), create_combo_box_tree_model());
+    gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(blog_access_permission), "private", "PRIVATE");
+    gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(blog_access_permission), "public", "PUBLIC");
+    gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(blog_access_permission), "password", "PASSWORD");
+    gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(blog_access_permission), "friend", "FRIEND");
     printf("n is %d\n", n);
     struct tm *time_ptr;
     time_t the_time;
@@ -105,7 +114,8 @@ int main(int argc, char** argv) {
     gtk_label_set_text(GTK_LABEL(current_time), time_malloc);
     post_blog_page = g_list_append(post_blog_page, post_blog_title_entry);
     post_blog_page = g_list_append(post_blog_page, post_blog_content_text_view);
-    
+    post_blog_page = g_list_append(post_blog_page, blog_access_permission);
+    post_blog_page = g_list_append(post_blog_page, blog_password);
     
     //signal to connect to widget
     g_signal_connect(window, "delete-event", gtk_main_quit, NULL);
@@ -257,6 +267,26 @@ GtkTreeModel* create_model(void)
     
     return GTK_TREE_MODEL(list_store);
 }
+GtkTreeModel* create_combo_box_tree_model(void)
+{
+    GtkListStore *list_store;
+    list_store = gtk_list_store_new(1, G_TYPE_STRING);
+    GtkTreeIter iter;
+    
+    gtk_list_store_append(list_store, &iter);
+    gtk_list_store_set(list_store, &iter, 0,
+            "PRIVATE", -1);
+    gtk_list_store_append(list_store, &iter);
+    gtk_list_store_set(list_store, &iter, 0,
+            "PUBLIC", -1);
+    gtk_list_store_append(list_store, &iter);
+    gtk_list_store_set(list_store, &iter, 0,
+            "PASSWORD", -1);
+    gtk_list_store_append(list_store, &iter);
+    gtk_list_store_set(list_store, &iter, 0,
+            "FRIEND", -1);
+    return GTK_TREE_MODEL(list_store);
+}
 void icon_view_item_select(GtkIconView *icon_view, GtkTreePath *path, gpointer userdata)
 {
     GtkTreeModel *model;
@@ -298,14 +328,16 @@ void get_access_token_button_clicked(GtkButton *button, gpointer userdata)
 }
 void post_blog_ok_button_clicked(GtkButton *button, gpointer userdata)
 {
-    GtkEntry *title_entry;
+    GtkEntry *title_entry, *password_entry;
     GtkTextView *text_view;
-    GtkEntryBuffer *title_buffer;
+    GtkEntryBuffer *title_buffer, *password_buffer;
     GtkTextBuffer *context_buffer;
     GtkTextIter start, end;
+    GtkComboBoxText *permission;
     GList *list = (GList*)userdata;
     const gchar *title_string;
-    gchar *content_string;
+    const gchar *password;
+    gchar *content_string, *blog_permission;
     title_entry = (GtkEntry*)list->data;
     list = list->next;
     text_view = (GtkTextView*)list->data;
@@ -319,7 +351,21 @@ void post_blog_ok_button_clicked(GtkButton *button, gpointer userdata)
     puts("\n\n\n");
     puts(content_string);
     puts(accesstoken);
-    xiaonei_gtk_create_one_blog(accesstoken, title_string, content_string);
+    list = list->next;
+    permission = (GtkComboBoxText*)list->data;
+    list = list->next;
+    password_entry = (GtkEntry*)list->data;
+    password_buffer = gtk_entry_get_buffer(password_entry);
+    
+    g_print("password is %s\n", password);
+    blog_permission = gtk_combo_box_text_get_active_text(permission);
+    if(blog_permission == "PASSWORD")
+    {
+        password = gtk_entry_buffer_get_text(password_buffer);
+    }
+    else
+        password = "";
+    xiaonei_gtk_create_one_blog(accesstoken, blog_permission, title_string, content_string, password);
     
     
 }

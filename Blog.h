@@ -21,7 +21,7 @@ extern "C" {
 #endif
     static size_t write_data(char *ptr, size_t size, size_t nmemb, void *userdata);
     void xiaonei_gtk_get_blog_list(char *access_token);
-    void xiaonei_gtk_create_one_blog(char *access_token, char *title, char *content);
+    void xiaonei_gtk_create_one_blog(char *access_token, char *permision, char *title, char *content, char *password);
     void xiaonei_gtk_get_one_blog(char *access_token);
 
 

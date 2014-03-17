@@ -23,7 +23,7 @@ void xiaonei_gtk_get_blog_list(char *access_token)
     curl_easy_perform(curl);
     curl_easy_cleanup(curl);
 }
-void xiaonei_gtk_create_one_blog(char *access_token, char *title, char *content)
+void xiaonei_gtk_create_one_blog(char *access_token, char *permision, char *title, char *content, char *password)
 {
     CURL *curl;
     curl_global_init(CURL_GLOBAL_ALL);
@@ -31,7 +31,7 @@ void xiaonei_gtk_create_one_blog(char *access_token, char *title, char *content)
     char str[500];
     //char *ptr;
     sprintf(str,"access_token=%s&title=%s&accessControl=%s&password=%s&content=%s",
-            access_token, title, "PUBLIC", "", content);
+            access_token, title, permision, password, content);
     puts(str);
     //ptr = curl_easy_escape(curl, str, strlen(str));
     curl_easy_setopt(curl, CURLOPT_URL, POST_URL);
