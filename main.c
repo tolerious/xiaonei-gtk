@@ -355,16 +355,12 @@ void post_blog_ok_button_clicked(GtkButton *button, gpointer userdata)
     permission = (GtkComboBoxText*)list->data;
     list = list->next;
     password_entry = (GtkEntry*)list->data;
-    password_buffer = gtk_entry_get_buffer(password_entry);
-    
-    g_print("password is %s\n", password);
+        
     blog_permission = gtk_combo_box_text_get_active_text(permission);
-    if(blog_permission == "PASSWORD")
-    {
-        password = gtk_entry_buffer_get_text(password_buffer);
-    }
-    else
-        password = "";
+    password_buffer = gtk_entry_get_buffer(password_entry);
+    password = gtk_entry_buffer_get_text(password_buffer);
+    g_print("password is %s\n", password);
+    g_print("permission is %s\n", blog_permission);
     xiaonei_gtk_create_one_blog(accesstoken, blog_permission, title_string, content_string, password);
     
     

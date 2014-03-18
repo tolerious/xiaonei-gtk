@@ -30,9 +30,13 @@ void xiaonei_gtk_create_one_blog(char *access_token, char *permision, char *titl
     curl = curl_easy_init();
     char str[500];
     //char *ptr;
-    sprintf(str,"access_token=%s&title=%s&accessControl=%s&password=%s&content=%s",
-            access_token, title, permision, password, content);
-    puts(str);
+    if(strcmp(permision, "PASSWORD") == 0)
+        sprintf(str,"access_token=%s&title=%s&content=%s&accessControl=%s&password=%s",
+                access_token, title, content, permision, password);
+    else
+        sprintf(str,"access_token=%s&title=%s&content=%s&accessControl=%s",
+                access_token, title, content, permision);
+    g_print("\nstr is %s\n", str);
     //ptr = curl_easy_escape(curl, str, strlen(str));
     curl_easy_setopt(curl, CURLOPT_URL, POST_URL);
     curl_easy_setopt(curl, CURLOPT_POST, 1L);
